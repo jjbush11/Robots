@@ -1,6 +1,6 @@
 import pyrosim.pyrosim as pyrosim #makes it so we dont have to say pyrosim.pyrosim.Start... every time
 #alters what is in the world
-
+#pos (x,y,z)
 length =1
 width=1
 height=1
@@ -12,7 +12,9 @@ def Create_World():
 
 def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
-    pyrosim.Send_Cube(name="Torso", pos=[0,0,.5] , size=[length,width,height]) #creates box with initial size and positons 
+    pyrosim.Send_Cube(name="Link0", pos=[0,0,.5] , size=[length,width,height]) #creates box with initial size and positons 
+    pyrosim.Send_Joint( name = "Link0_Link1" , parent= "Link0" , child = "Link1" , type = "revolute", position = [0,0,1])
+    pyrosim.Send_Cube(name="Link1", pos=[0,0,.5] , size=[length,width,height]) #creates box with initial size and positons 
     pyrosim.End()
 
 Create_World()
