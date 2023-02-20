@@ -20,6 +20,7 @@ class SIMULATION:
             p.stepSimulation() #sets the physics inside the world for a small amount of time
             self.robotID.Sense(x)
             self.robotID.Act(x)
+            time.sleep(1/60)
         
     def __del__(self):
         p.disconnect()
