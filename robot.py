@@ -25,6 +25,7 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             #returns instance of sensor, stored in in dictoionary 
             self.motors[jointName] = MOTOR(jointName)
+            print(jointName)
 
     def Act(self,x):
         for i in self.motors:

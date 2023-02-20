@@ -13,10 +13,9 @@ class MOTOR:
         self.amplitude = c.amplitude 
         self.frequency = c.frequency
         self.offset = c.offset
-        self.motorVals = self.amplitude*numpy.sin(self.motorsVect*self.frequency+self.offset)
-        # frontLegSinValues = numpy.linspace(0, 360, c.loop)*numpy.pi/180.
-        # backLegSinValues = numpy.linspace(0, 360, c.loop)*numpy.pi/180.
-        # self.values[x] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkname) #adds sensor 
+        if (self.jointName == b'Torso_BackLeg'):
+            self.frequency = 10
+        self.motorVals = self.amplitude*numpy.sin(self.motorsVect*self.frequency+self.offset) 
 
     def Set_Value(self, robotID,x):
         pyrosim.Set_Motor_For_Joint(
@@ -25,3 +24,7 @@ class MOTOR:
             controlMode = p.POSITION_CONTROL, #mains ones are position or velocity
             targetPosition = self.amplitude*numpy.sin(self.motorsVect[x]*self.frequency+self.offset),
             maxForce = c.motorForce)
+    
+    def Save_Values(self):
+        numpy.save("data/moterSinArrayValues.npy", self.motorVals)
+        print("saved")

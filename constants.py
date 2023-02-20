@@ -5,11 +5,11 @@ frontLegFrequency = 10
 frontLegPhaseOffset = 0
 
 amplitude = numpy.pi/4.
-frequency = 10
+frequency = 20
 offset = 0
 
 backLegAmplitude = numpy.pi/4.
-backLegFrequency = 10
+backLegFrequency = 40
 backLegPhaseOffset = numpy.pi/4
 
 loop=1000

@@ -1,5 +1,6 @@
 from world import WORLD
 from robot import ROBOT
+from sensor import SENSOR
 import pybullet_data #allows for use of plane.urdf
 import pybullet as p
 import pyrosim.pyrosim as pyrosim 
@@ -20,10 +21,11 @@ class SIMULATION:
             p.stepSimulation() #sets the physics inside the world for a small amount of time
             self.robotID.Sense(x)
             self.robotID.Act(x)
-            time.sleep(1/60)
+            time.sleep(1/300)
         
     def __del__(self):
         p.disconnect()
+
 
 
 
