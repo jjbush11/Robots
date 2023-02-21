@@ -27,4 +27,4 @@ class MOTOR:
     
     def Save_Values(self):
         numpy.save("data/moterSinArrayValues.npy", self.motorVals)
-        print("saved")
+      
