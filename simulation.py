@@ -20,6 +20,7 @@ class SIMULATION:
         for x in range(c.loop):
             p.stepSimulation() #sets the physics inside the world for a small amount of time
             self.robotID.Sense(x)
+            self.robotID.Think()
             self.robotID.Act(x)
             time.sleep(1/300)
         
