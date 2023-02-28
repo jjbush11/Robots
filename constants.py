@@ -5,7 +5,7 @@ frontLegFrequency = 10
 frontLegPhaseOffset = 0
 
 amplitude = numpy.pi/4.
-frequency = 20
+frequency = 10
 offset = 0
 
 backLegAmplitude = numpy.pi/4.
