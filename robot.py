@@ -25,12 +25,21 @@ class ROBOT:
     def Prepare_To_Act(self):
         self.motors=dict()
         for jointName in pyrosim.jointNamesToIndices:
-            #returns instance of sensor, stored in in dictoionary 
+            #returns instance of motor, stored in in dictoionary 
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self,x):
-        for i in self.motors:
-            self.motors[i].Set_Value(self.robotID,x)
+        for neuronName in self.nn.Get_Neuron_Names():
+            if self.nn.Is_Motor_Neuron(neuronName):
+                # jointName = bytes(self.nn.Get_Motor_Neurons_Joint(neuronName), 'utf-8')
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                # self.motors[jointName].Set_Value(self.robotID, desiredAngle)
+                print(neuronName)
+                print(jointName)
+                print(desiredAngle)
+                for i in self.motors:
+                    self.motors[i].Set_Value(self.robotID, desiredAngle)
     
     def Think(self):
         self.nn.Update()
