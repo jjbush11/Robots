@@ -17,6 +17,7 @@ class ROBOT:
         for linkName in pyrosim.linkNamesToIndices:
              #returns instance of sensor, stored in in dictoionary 
             self.sensors[linkName] = SENSOR(linkName) 
+
     
     def Sense(self,x):
         for i in self.sensors:

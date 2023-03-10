@@ -1,5 +1,6 @@
 import pyrosim.pyrosim as pyrosim #makes it so we dont have to say pyrosim.pyrosim.Start... every time
 #alters what is in the world
+import random
 #pos (x,y,z)
 length =1
 width=1
@@ -34,10 +35,16 @@ def Generate_Brain():
     pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
     pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
 
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = 2.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = 2.0 ) #connects sensors 1 to motor 3 
-    pyrosim.Send_Synapse( sourceNeuronName = 2 , targetNeuronName = 3 , weight = 2.0 ) 
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = 2.0 ) 
+    # pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = 2.0 )
+    # pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = 2.0 ) #connects sensors 1 to motor 3 
+    # pyrosim.Send_Synapse( sourceNeuronName = 2 , targetNeuronName = 3 , weight = 2.0 ) 
+    # pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = 2.0 ) 
+
+    for senseName in range (3):
+        for motorName in range(3,5):
+            pyrosim.Send_Synapse( sourceNeuronName = senseName , targetNeuronName = motorName , weight = random.randrange(-1,1))
+
+
 
     pyrosim.End()
 
