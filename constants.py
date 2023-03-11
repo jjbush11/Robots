@@ -1,5 +1,9 @@
 import numpy
 
+length =1
+width=1
+height=1
+
 frontLegAmplitude = numpy.pi/4.
 frontLegFrequency = 10
 frontLegPhaseOffset = 0
