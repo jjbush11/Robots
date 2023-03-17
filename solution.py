@@ -2,6 +2,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim #makes it so we dont have to say pyrosim.pyrosim.Start... every time
 import constants as c
 import os
+import random
 
 
 class SOLUTION: 
@@ -9,11 +10,16 @@ class SOLUTION:
         self.weights = numpy.random.rand(3,2) 
         self.weights = self.weights * 2 -1
 
-    def Evaluate(self):
+    def Evaluate(self, directOrGui):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python3 simulate.py")
+
+        os.system("python3 simulate.py " + directOrGui)
+
+        inFile = open("fitness.txt", "r")
+        self.fitness = float(inFile.read())
+        inFile.close()
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf") #tells pyrosim name of file where info about the world should be stored
@@ -46,3 +52,11 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName = currentRow , targetNeuronName = currentColumn+3 , weight = self.weights[currentRow][currentColumn])
 
         pyrosim.End()
+
+    def Mutate(self):
+        randomRow = random.randint(0,2)
+        randomColumn = random.randint(0,1)
+        self.weights[randomRow][randomColumn] = random.random() * 2 - 1
+
+
+

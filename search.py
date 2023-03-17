@@ -6,6 +6,8 @@ from hillclimber import HILL_CLIMBER
 #     os.system("python3 simulate.py")
 
 hc = HILL_CLIMBER()
+# hc.Show_Initial()
 hc.Evolve()
+hc.Show_Best()
 
 
