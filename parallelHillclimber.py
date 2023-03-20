@@ -7,6 +7,10 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = dict()
         self.nextAvailableID = 0
+
+        os.system("del brain"+str(self.myID)+".nndf")
+        os.system("del fitness"+str(self.myID)+".txt")
+
         for x in range(c.populationSize):
             self.parents[x] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID+=1
@@ -14,21 +18,26 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
         for x in range(c.populationSize):
-            self.parents[x].Evaluate("GUI")
+            self.parents[x].Start_Simulation("GUI")
+
+        for x in range(c.populationSize):
+            self.parents[x].Wait_For_Simulation_To_End()
+
         # self.parent.Evaluate("direct")
-        # for currentGeneration in range(c.numberOfGenerations):
-        #     if (currentGeneration == 0):
-        #         self.Show_Best()
-        #     self.Evolve_For_One_Generation()
+        for currentGeneration in range(c.numberOfGenerations):
+            # if (currentGeneration == 0):
+            #     self.Show_Best()
+            self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        self.Mutate()
-        self.child.Evaluate("direct")
-        self.Print()
-        self.Select()
+        # self.Mutate()
+        # self.child.Evaluate("direct")
+        # self.Print()
+        # self.Select()
 
     def Spawn(self):
+        self.child = dict()
         self.child = copy.deepcopy(self.parent)
         self.child.Set_ID(self.nextAvailableID)
         self.nextAvailableID+=1

@@ -53,9 +53,12 @@ class ROBOT:
 
         inFile = open("tmp"+str(self.myID)+".txt", "w")
         inFile.write(str(xCoordinateOfLinkZero))
-        # os.system("rename tmp"+str(self.myID)+".txt" "fitness"+str(self.myID)+".txt")        
-        os.rename("tmp"+str(self.myID)+".txt" , "fitness"+str(self.myID)+".txt")
+        # os.rename("tmp"+str(self.myID)+".txt" , "fitness"+str(self.myID)+".txt")
+        # inFile = open("fitness"+str(self.myID)+".txt", "w")
         inFile.close()
+        os.system("ren tmp"+str(self.myID)+".txt " "fitness"+str(self.myID)+".txt")
+         
+        
         
         
             

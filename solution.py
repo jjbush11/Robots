@@ -12,20 +12,35 @@ class SOLUTION:
         self.weights = numpy.random.rand(3,2) 
         self.weights = self.weights * 2 -1
 
-    def Evaluate(self, directOrGui):
+    # def Evaluate(self, directOrGui):
+    #     self.Create_World()
+    #     self.Create_Body()
+    #     self.Create_Brain()
+
+    #     os.system("start /B python3 simulate.py " + directOrGui + " "+str(self.myID))
+
+    #     while not os.path.exists("fitness"+str(self.myID)+".txt"):
+    #         time.sleep(0.01)
+    #     inFile = open("fitness"+str(self.myID)+".txt", "r")
+    #     self.fitness = float(inFile.read())
+    #     print(self.fitness)
+    #     inFile.close()
+
+    def Start_Simulation(self, directOrGui):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
 
         os.system("start /B python3 simulate.py " + directOrGui + " "+str(self.myID))
 
+    def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+str(self.myID)+".txt"):
             time.sleep(0.01)
-            print(1)
         inFile = open("fitness"+str(self.myID)+".txt", "r")
         self.fitness = float(inFile.read())
-        print(self.fitness)
         inFile.close()
+
+        os.system("del fitness"+str(self.myID)+".txt")
 
     def Create_World(self):
         # while not os.path.exists("world.sdf"):
