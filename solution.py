@@ -3,10 +3,12 @@ import pyrosim.pyrosim as pyrosim #makes it so we dont have to say pyrosim.pyros
 import constants as c
 import os
 import random
+import time
 
 
 class SOLUTION: 
-    def __init__(self):
+    def __init__(self, nextAvailableID):
+        self.myID = nextAvailableID
         self.weights = numpy.random.rand(3,2) 
         self.weights = self.weights * 2 -1
 
@@ -15,18 +17,28 @@ class SOLUTION:
         self.Create_Body()
         self.Create_Brain()
 
-        os.system("python3 simulate.py " + directOrGui)
+        os.system("start /B python3 simulate.py " + directOrGui + " "+str(self.myID))
 
-        inFile = open("fitness.txt", "r")
+        while not os.path.exists("fitness"+str(self.myID)+".txt"):
+            time.sleep(0.01)
+            print(1)
+        inFile = open("fitness"+str(self.myID)+".txt", "r")
         self.fitness = float(inFile.read())
+        print(self.fitness)
         inFile.close()
 
     def Create_World(self):
+        # while not os.path.exists("world.sdf"):
+        #     time.sleep(0.01)
         pyrosim.Start_SDF("world.sdf") #tells pyrosim name of file where info about the world should be stored
+        
         pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons 
+
         pyrosim.End() #closes sdf file
 
     def Create_Body(self):
+        # while not os.path.exists("body.urdf"):
+        #     time.sleep(0.01)
         pyrosim.Start_URDF("body.urdf")
 
         pyrosim.Send_Cube(name="Torso", pos=[1.5,0,1.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons 
@@ -35,10 +47,13 @@ class SOLUTION:
         pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
         pyrosim.Send_Cube(name="FrontLeg", pos=[.5,0,-.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons
 
-        pyrosim.End()
+        pyrosim.End()    
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        # while not os.path.exists("brain"+str(self.myID)+".nndf"):
+        #     time.sleep(0.01)
+            
+        pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
         pyrosim.Send_Sensor_Neuron(name=0, linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name=1, linkName = "BackLeg")
@@ -57,6 +72,9 @@ class SOLUTION:
         randomRow = random.randint(0,2)
         randomColumn = random.randint(0,1)
         self.weights[randomRow][randomColumn] = random.random() * 2 - 1
+
+    def Set_ID(self, nextAvailableID):
+        self.myID = nextAvailableID
 
 
 
