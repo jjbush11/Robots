@@ -41,6 +41,7 @@ class SOLUTION:
         inFile.close()
 
         os.system("del fitness"+str(self.myID)+".txt")
+        print("del")
 
     def Create_World(self):
         # while not os.path.exists("world.sdf"):

@@ -11,7 +11,7 @@ import time
 class SIMULATION:
     def __init__(self, directOrGui, solutionID):
         self.directOrGui = directOrGui
-        if (directOrGui == "direct"):
+        if (directOrGui == "direct" or directOrGui == "DIRECT"):
             self.physicsClient = p.connect(p.DIRECT) #creates object which handles the phyiscs and draws results to GUI (graphical user interface)
         else:
             self.physicsClient = p.connect(p.GUI)

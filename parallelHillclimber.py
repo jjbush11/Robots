@@ -8,8 +8,8 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = dict()
         self.nextAvailableID = 0
 
-        os.system("del brain"+str(self.myID)+".nndf")
-        os.system("del fitness"+str(self.myID)+".txt")
+        os.system("del brain"+str(self.nextAvailableID)+".nndf")
+        os.system("del fitness"+str(self.nextAvailableID)+".txt")
 
         for x in range(c.populationSize):
             self.parents[x] = SOLUTION(self.nextAvailableID)
@@ -17,11 +17,7 @@ class PARALLEL_HILL_CLIMBER:
         # self.parent = SOLUTION()
 
     def Evolve(self):
-        for x in range(c.populationSize):
-            self.parents[x].Start_Simulation("GUI")
-
-        for x in range(c.populationSize):
-            self.parents[x].Wait_For_Simulation_To_End()
+        self.Evaluate(self.parents)
 
         # self.parent.Evaluate("direct")
         for currentGeneration in range(c.numberOfGenerations):
@@ -31,30 +27,49 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        # self.Mutate()
-        # self.child.Evaluate("direct")
-        # self.Print()
-        # self.Select()
+        self.Mutate()
+        self.Evaluate(self.children)
+        self.Print()
+        self.Select()
 
     def Spawn(self):
-        self.child = dict()
-        self.child = copy.deepcopy(self.parent)
-        self.child.Set_ID(self.nextAvailableID)
-        self.nextAvailableID+=1
+        self.children = dict()
+        for x in self.parents:
+            self.children[x] = copy.deepcopy(self.parents[x])
+            self.children[x].Set_ID(self.nextAvailableID)
+            self.nextAvailableID+=1
+
 
     def Mutate(self):
-        self.child.Mutate()
+        for x in self.children:
+            self.children[x].Mutate()
 
     def Select(self):
-        if (self.parent.fitness<self.child.fitness):
-            self.parent = self.child
+        for x in self.parents:
+            if (self.parents[x].fitness>self.children[x].fitness):
+                self.parents[x] = self.children[x]
 
     def Print(self):
-        print("Pairs: ",self.parent.fitness, " ", self.child.fitness)
+        for x in self.parents:
+            print("\nPairs: ",self.parents[x].fitness, " ", self.children[x].fitness,"\n")
+
 
     # def Show_Initial(self):
     #     os.system("python3 simulate.py gui")
 
     def Show_Best(self):
-        pass
-        # os.system("python3 simulate.py gui")
+        temp = self.parents[0].fitness
+        min = 0
+        for x in self.parents:
+            if (self.parents[x].fitness < temp):
+                temp = self.parents[x].fitness
+                min = x
+
+        self.parents[min].Start_Simulation("GUI")
+
+    def Evaluate(self, solutions):
+        for x in range(c.populationSize):
+            solutions[x].Start_Simulation("DIRECT")
+
+        for x in range(c.populationSize):
+            solutions[x].Wait_For_Simulation_To_End()

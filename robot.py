@@ -4,6 +4,7 @@ from sensor import SENSOR
 from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import stat
 
 class ROBOT:
     def __init__(self, solutionID):
@@ -57,6 +58,8 @@ class ROBOT:
         # inFile = open("fitness"+str(self.myID)+".txt", "w")
         inFile.close()
         os.system("ren tmp"+str(self.myID)+".txt " "fitness"+str(self.myID)+".txt")
+        # os.chmod("fitness"+str(self.myID)+".txt", stat.S_IRWXO)
+        # os.rename("tmp"+str(self.myID)+".txt" , "fitness"+str(self.myID)+".txt")
          
         
         

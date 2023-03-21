@@ -25,4 +25,4 @@ backLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 
 numberOfGenerations = 10
 
-populationSize = 2
+populationSize = 10
