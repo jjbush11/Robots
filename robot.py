@@ -5,23 +5,21 @@ from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import constants as c
-import time
 
 class ROBOT:
     def __init__(self, solutionID):
         self.myID = solutionID
-        # self.robotID = p.loadURDF("body.urdf") #sets floor 
-
-        # pyrosim.Prepare_To_Simulate(self.robotID) #does more setting up
-        # self.Prepare_To_Sense()
-        # self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain"+str(self.myID)+".nndf")
-        os.system("del brain"+str(self.myID)+".nndf")
-
-        self.robotID = p.loadURDF("body.urdf") #sets floor
+        try:
+           self.robotID = p.loadURDF("body.urdf") #sets floor  
+        except:
+            self.robotID=p.loadURDF("defaultBody.urdf")
+        # self.robotID = p.loadURDF("body.urdf") #sets floor  
         pyrosim.Prepare_To_Simulate(self.robotID) #does more setting up
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
+        self.nn = NEURAL_NETWORK("brain"+str(self.myID)+".nndf")
+
+        os.system("del brain"+str(self.myID)+".nndf")
 
     def Prepare_To_Sense(self):
         self.sensors=dict()
@@ -55,12 +53,9 @@ class ROBOT:
         # self.nn.Print()
     
     def Get_Fitness(self):
-        # stateOfLinkZero = p.getLinkState(self.robotID,0)
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotID)
-        # positionOfLinkZero = stateOfLinkZero[0]
-        basePosition = basePositionAndOrientation[0]
-        # xCoordinateOfLinkZero = positionOfLinkZero[0]
-        xCoordinateOfLinkZero = basePosition[0]
+        stateOfLinkZero = p.getLinkState(self.robotID,0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
 
         inFile = open("tmp"+str(self.myID)+".txt", "w")
         inFile.write(str(xCoordinateOfLinkZero))
