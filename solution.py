@@ -43,8 +43,9 @@ class SOLUTION:
         os.system("del fitness"+str(self.myID)+".txt")
         
     def Create_World(self):
-        # while not os.path.exists("world.sdf"):
-        #     time.sleep(0.01)
+        while not os.path.exists("world.sdf"):
+            print("waiting for world")
+            time.sleep(0.01)
         pyrosim.Start_SDF("world.sdf") #tells pyrosim name of file where info about the world should be stored
         
         pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons 
@@ -53,6 +54,7 @@ class SOLUTION:
 
     def Create_Body(self):
         # while not os.path.exists("body.urdf"):
+        #     print("waiting for body")
         #     time.sleep(0.01)
         pyrosim.Start_URDF("body.urdf")
 
