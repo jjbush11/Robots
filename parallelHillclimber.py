@@ -46,7 +46,7 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for x in self.parents:
-            if (self.parents[x].fitness>self.children[x].fitness):
+            if (self.parents[x].fitness<self.children[x].fitness):
                 self.parents[x] = self.children[x]
 
     def Print(self):
@@ -58,14 +58,28 @@ class PARALLEL_HILL_CLIMBER:
     #     os.system("python3 simulate.py gui")
 
     def Show_Best(self):
-        temp = self.parents[0].fitness
-        min = 0
-        for x in self.parents:
-            if (self.parents[x].fitness < temp):
-                temp = self.parents[x].fitness
-                min = x
+        # temp = self.parents[0].fitness
+        # min = 0
+        # for x in self.parents:
+        #     if (self.parents[x].fitness < temp):
+        #         temp = self.parents[x].fitness
+        #         min = x
+        # f = open("data/bestFitness.txt", "a")
+        # f.write(str(self.parents[min].fitness)+"\n")
+        # f.close()
+        # self.parents[min].Start_Simulation("GUI")
 
-        self.parents[min].Start_Simulation("GUI")
+        temp = self.parents[0].fitness
+        max = 0
+        for x in self.parents:
+            if (self.parents[x].fitness > temp):
+                temp = self.parents[x].fitness
+                max = x
+        f = open("data/bestFitness.txt", "a")
+        f.write(str(self.parents[max].fitness)+"\n")
+        f.close()
+
+        self.parents[max].Start_Simulation("GUI")
 
     def Evaluate(self, solutions):
         for x in range(c.populationSize):
