@@ -8,7 +8,7 @@ height=1
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf") #tells pyrosim name of file where info about the world should be stored
-    pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[length,width,height]) #creates box with initial size and positons 
+    # pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[length,width,height]) #creates box with initial size and positons 
     pyrosim.End() #closes sdf file
 
 # def Create_Robot():

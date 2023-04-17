@@ -48,7 +48,7 @@ class SOLUTION:
             time.sleep(0.01)
         pyrosim.Start_SDF("world.sdf") #tells pyrosim name of file where info about the world should be stored
         
-        pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons 
+        # pyrosim.Send_Cube(name="Box", pos=[-2,2,.5] , size=[c.length,c.width,c.height]) #creates box with initial size and positons 
 
         pyrosim.End() #closes sdf file
 

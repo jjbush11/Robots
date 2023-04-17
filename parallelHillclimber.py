@@ -8,8 +8,8 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = dict()
         self.nextAvailableID = 0
         
-        # os.system("del brain"+str(self.nextAvailableID)+".nndf")
-        # os.system("del fitness"+str(self.nextAvailableID)+".txt")
+        os.system("del brain"+str(self.nextAvailableID)+".nndf")
+        os.system("del fitness"+str(self.nextAvailableID)+".txt")
 
         for x in range(c.populationSize):
             self.parents[x] = SOLUTION(self.nextAvailableID)

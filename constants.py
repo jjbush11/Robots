@@ -25,7 +25,7 @@ backLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 
 numberOfGenerations = 10
 
-populationSize = 10
+populationSize = 100
 
 numSensorNeurons = 6
 numMotorNeurons = 11
