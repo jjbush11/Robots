@@ -23,9 +23,9 @@ motorForce=40
 frontLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 backLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 
-numberOfGenerations = 10
+numberOfGenerations = 20
 
-populationSize = 100
+populationSize = 20
 
 numSensorNeurons = 6
 numMotorNeurons = 11

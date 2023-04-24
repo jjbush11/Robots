@@ -9,10 +9,11 @@ import constants as c
 class ROBOT:
     def __init__(self, solutionID):
         self.myID = solutionID
-        try:
-           self.robotID = p.loadURDF("body.urdf") #sets floor  
-        except:
-            self.robotID=p.loadURDF("defaultBody.urdf")
+        self.robotID = p.loadURDF("body"+str(self.myID)+".urdf") #sets floor
+        # try:
+        #    self.robotID = p.loadURDF("body.urdf") #sets floor  
+        # except:
+        #     self.robotID=p.loadURDF("defaultBody.urdf")
         # self.robotID = p.loadURDF("body.urdf") #sets floor  
         pyrosim.Prepare_To_Simulate(self.robotID) #does more setting up
         self.Prepare_To_Sense()
@@ -20,6 +21,8 @@ class ROBOT:
         self.nn = NEURAL_NETWORK("brain"+str(self.myID)+".nndf")
 
         os.system("del brain"+str(self.myID)+".nndf")
+        os.system("del body"+str(self.myID)+".urdf")
+        os.system("del world"+str(self.myID)+".sdf")
 
     def Prepare_To_Sense(self):
         self.sensors=dict()

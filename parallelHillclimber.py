@@ -8,8 +8,8 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = dict()
         self.nextAvailableID = 0
         
-        os.system("del brain"+str(self.nextAvailableID)+".nndf")
-        os.system("del fitness"+str(self.nextAvailableID)+".txt")
+        # os.system("del brain"+str(self.nextAvailableID)+".nndf")
+        # os.system("del fitness"+str(self.nextAvailableID)+".txt")
 
         for x in range(c.populationSize):
             self.parents[x] = SOLUTION(self.nextAvailableID)
@@ -78,6 +78,10 @@ class PARALLEL_HILL_CLIMBER:
         f = open("data/bestFitness.txt", "a")
         f.write(str(self.parents[max].fitness)+"\n")
         f.close()
+
+        # Saving the best ones information
+        # os.system("ren brain"+str(self.parents[max].myID)+".nndf " "showBestBrain"+str(self.parents[max].myID)+".nndf")
+        
 
         self.parents[max].Start_Simulation("GUI")
 
