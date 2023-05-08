@@ -5,14 +5,17 @@ from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import constants as c
+import numpy as np
 
 class ROBOT:
     def __init__(self, solutionID):
+        self.velocityVect = []
         self.myID = solutionID
-        try:
-           self.robotID = p.loadURDF("body.urdf") #sets floor  
-        except:
-            self.robotID=p.loadURDF("defaultBody.urdf")
+        self.robotID = p.loadURDF("body"+str(self.myID)+".urdf") #sets floor
+        # try:
+        #    self.robotID = p.loadURDF("body.urdf") #sets floor  
+        # except:
+        #     self.robotID=p.loadURDF("defaultBody.urdf")
         # self.robotID = p.loadURDF("body.urdf") #sets floor  
         pyrosim.Prepare_To_Simulate(self.robotID) #does more setting up
         self.Prepare_To_Sense()
@@ -20,6 +23,8 @@ class ROBOT:
         self.nn = NEURAL_NETWORK("brain"+str(self.myID)+".nndf")
 
         os.system("del brain"+str(self.myID)+".nndf")
+        os.system("del body"+str(self.myID)+".urdf")
+        os.system("del world"+str(self.myID)+".sdf")
 
     def Prepare_To_Sense(self):
         self.sensors=dict()
@@ -39,6 +44,10 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self,x):
+
+        robotVelocity = p.getBaseVelocity(self.robotID)
+        self.velocityVect.append(robotVelocity[0][0])
+
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = bytes(self.nn.Get_Motor_Neurons_Joint(neuronName), 'utf-8')
@@ -57,8 +66,13 @@ class ROBOT:
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
 
+        velocityVar = np.var(self.velocityVect)
+
+        # minimize velocity variance of every time step get velocity in every time step add to vector, take variance oif vector and minimize 
+        fitnessFunc = xCoordinateOfLinkZero*c.weightOfDistance - velocityVar*c.weightOfRegMotion
+
         inFile = open("tmp"+str(self.myID)+".txt", "w")
-        inFile.write(str(xCoordinateOfLinkZero))
+        inFile.write(str(fitnessFunc))
         # os.rename("tmp"+str(self.myID)+".txt" , "fitness"+str(self.myID)+".txt")
         # inFile = open("fitness"+str(self.myID)+".txt", "w")
         inFile.close()

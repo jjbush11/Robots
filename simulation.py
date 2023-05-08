@@ -17,7 +17,7 @@ class SIMULATION:
             self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath()) #something to do with floor
         p.setGravity(0,0,c.gravity) #sets gravity 
-        self.world = WORLD()
+        self.world = WORLD(solutionID)
         self.robotID = ROBOT(solutionID)
     
     def Run(self):

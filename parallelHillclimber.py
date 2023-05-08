@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy as np
 
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -14,7 +15,10 @@ class PARALLEL_HILL_CLIMBER:
         for x in range(c.populationSize):
             self.parents[x] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID+=1
-        # self.parent = SOLUTION()
+        
+        self.fitnessMatrix = np.zeros((c.populationSize, c.numberOfGenerations))
+        self.tempPop = 0
+        self.tempGen = 0
 
     def Evolve(self):
         self.Evaluate(self.parents)
@@ -50,8 +54,15 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[x] = self.children[x]
 
     def Print(self):
+        self.tempPop = 0
         for x in self.parents:
             print("\nPairs: ",self.parents[x].fitness, " ", self.children[x].fitness,"\n")
+
+            self.fitnessMatrix[self.tempPop][self.tempGen] = self.parents[x].fitness
+            self.tempPop+=1
+        self.tempGen+=1
+
+        
 
 
     # def Show_Initial(self):
@@ -78,6 +89,13 @@ class PARALLEL_HILL_CLIMBER:
         f = open("data/bestFitness.txt", "a")
         f.write(str(self.parents[max].fitness)+"\n")
         f.close()
+
+        np.savetxt("data/fitnessMatrixHEX.csv", self.fitnessMatrix, delimiter=",")
+        np.save("data/fitnessMatrixHEX.npy", self.fitnessMatrix)
+
+        # Saving the best ones information
+        # os.system("ren brain"+str(self.parents[max].myID)+".nndf " "showBestBrain"+str(self.parents[max].myID)+".nndf")
+        
 
         self.parents[max].Start_Simulation("GUI")
 
