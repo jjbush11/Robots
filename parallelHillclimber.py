@@ -90,8 +90,8 @@ class PARALLEL_HILL_CLIMBER:
         f.write(str(self.parents[max].fitness)+"\n")
         f.close()
 
-        np.savetxt("data/fitnessMatrixHEX.csv", self.fitnessMatrix, delimiter=",")
-        np.save("data/fitnessMatrixHEX.npy", self.fitnessMatrix)
+        np.savetxt("data/fitnessMatrixQUAD.csv", self.fitnessMatrix, delimiter=",")
+        np.save("data/fitnessMatrixQUAD.npy", self.fitnessMatrix)
 
         # Saving the best ones information
         # os.system("ren brain"+str(self.parents[max].myID)+".nndf " "showBestBrain"+str(self.parents[max].myID)+".nndf")

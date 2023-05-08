@@ -13,6 +13,8 @@ class TEST:
         for i in self.sensors:
             print(i)
             # SENSOR.Get_Value(self.sensors[i])
+def helo(self):
+    print("hh")
 
 test =TEST()
 test.Sense()

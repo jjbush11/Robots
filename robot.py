@@ -13,9 +13,11 @@ class ROBOT:
         self.myID = solutionID
         self.robotID = p.loadURDF("body"+str(self.myID)+".urdf") #sets floor
         # try:
-        #    self.robotID = p.loadURDF("body.urdf") #sets floor  
+        #    self.robotID = p.loadURDF("body"+str(self.myID)+".urdf") #sets floor  
         # except:
-        #     self.robotID=p.loadURDF("defaultBody.urdf")
+        #     print("\n nooooooooo \n")
+        #     self.robotID=p.loadURDF("bodyTwo.urdf")
+            # self.robotID=p.loadURDF("defaultBody.urdf")
         # self.robotID = p.loadURDF("body.urdf") #sets floor  
         pyrosim.Prepare_To_Simulate(self.robotID) #does more setting up
         self.Prepare_To_Sense()
@@ -44,7 +46,7 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self,x):
-
+    
         robotVelocity = p.getBaseVelocity(self.robotID)
         self.velocityVect.append(robotVelocity[0][0])
 
@@ -54,12 +56,11 @@ class ROBOT:
                 # jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
                 self.motors[jointName].Set_Value(self.robotID, desiredAngle)
-                # for i in self.motors:
-                #     self.motors[i].Set_Value(self.robotID, desiredAngle)
+                
     
     def Think(self):
         self.nn.Update()
-        # self.nn.Print()
+        
     
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robotID,0)
@@ -68,7 +69,6 @@ class ROBOT:
 
         velocityVar = np.var(self.velocityVect)
 
-        # minimize velocity variance of every time step get velocity in every time step add to vector, take variance oif vector and minimize 
         fitnessFunc = xCoordinateOfLinkZero*c.weightOfDistance - velocityVar*c.weightOfRegMotion
 
         inFile = open("tmp"+str(self.myID)+".txt", "w")
@@ -79,8 +79,6 @@ class ROBOT:
         os.system("ren tmp"+str(self.myID)+".txt " "fitness"+str(self.myID)+".txt")
         # os.chmod("fitness"+str(self.myID)+".txt", stat.S_IRWXO)
         # os.rename("tmp"+str(self.myID)+".txt" , "fitness"+str(self.myID)+".txt")
-         
-        
         
         
             

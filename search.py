@@ -12,7 +12,6 @@ from parallelHillclimber import PARALLEL_HILL_CLIMBER
 # # hc.Show_Initial()
 # hc.Evolve()
 # hc.Show_Best()
-
 os.system("del brain*.nndf")
 os.system("del fitness*.txt")
 

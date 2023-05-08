@@ -10,4 +10,5 @@ class WORLD:
         #     p.loadSDF("defaultWorld.sdf")
         
         p.loadSDF("world"+str(self.myID)+".sdf") #tells pybullet to read in the world described box.sdf
+
         
