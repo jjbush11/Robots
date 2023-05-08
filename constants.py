@@ -16,18 +16,20 @@ backLegAmplitude = numpy.pi/4.
 backLegFrequency = 40
 backLegPhaseOffset = numpy.pi/4
 
-loop=500
+loop=1000
 gravity=-9.8
 motorForce=40
 
 frontLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 backLegSinValues = numpy.linspace(0, 360, loop)*numpy.pi/180.
 
-numberOfGenerations = 20
-
-populationSize = 20
+numberOfGenerations = 100
+populationSize = 100
 
 numSensorNeurons = 6
-numMotorNeurons = 11
+numMotorNeurons = 12
 
 motorJointRange = .2
+
+weightOfRegMotion = 1
+weightOfDistance = 2

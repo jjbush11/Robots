@@ -62,27 +62,27 @@ class SOLUTION:
         pyrosim.Send_Cube(name="Torso", pos=[0,0,1] , size=[1,2,c.height]) #creates box with initial size and positons 
 
         # right side bottom leg 
-        pyrosim.Send_Joint( name = "Torso_BackRightLeg" , parent= "Torso" , child = "BackRightLeg" , type = "revolute", position = [.5,-1,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_BackRightLeg" , parent= "Torso" , child = "BackRightLeg" , type = "revolute", position = [.5,-1,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="BackRightLeg", pos=[.5,0,0], size=[1,.2,.2]) #creates box with initial size and positons 
 
         # right side top right leg
-        pyrosim.Send_Joint( name = "Torso_FrontRightLeg" , parent= "Torso" , child = "FrontRightLeg" , type = "revolute", position = [.5,1,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_FrontRightLeg" , parent= "Torso" , child = "FrontRightLeg" , type = "revolute", position = [.5,1,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="FrontRightLeg", pos=[.5,0,0] , size=[1,.2,.2]) #creates box with initial size and positons
         
         # Middle Left side 
-        pyrosim.Send_Joint( name = "Torso_MiddleLeftLeg" , parent= "Torso" , child = "MiddleLeftLeg" , type = "revolute", position = [-.5,0,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_MiddleLeftLeg" , parent= "Torso" , child = "MiddleLeftLeg" , type = "revolute", position = [-.5,0,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="MiddleLeftLeg", pos=[-.5,0,0] , size=[1,.2,.2]) #creates box with initial size and positons
         
         # Middle Right Side (Side closer to camera)
-        pyrosim.Send_Joint( name = "Torso_MiddleRightLeg" , parent= "Torso" , child = "MiddleRightLeg" , type = "revolute", position = [.5,0,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_MiddleRightLeg" , parent= "Torso" , child = "MiddleRightLeg" , type = "revolute", position = [.5,0,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="MiddleRightLeg", pos=[.5,0,0] , size=[1,.2,.2]) #creates box with initial size and positons
 
         # left side lower leg 
-        pyrosim.Send_Joint( name = "Torso_BackLeftLeg" , parent= "Torso" , child = "BackLeftLeg" , type = "revolute", position = [-.5,-1,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_BackLeftLeg" , parent= "Torso" , child = "BackLeftLeg" , type = "revolute", position = [-.5,-1,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="BackLeftLeg", pos=[-.5,0,0] , size=[1,.2,.2]) #creates box with initial size and positons
 
         # left side top leg 
-        pyrosim.Send_Joint( name = "Torso_FrontLeftLeg" , parent= "Torso" , child = "FrontLeftLeg" , type = "revolute", position = [-.5,1,1], jointAxis="0 0 1")
+        pyrosim.Send_Joint( name = "Torso_FrontLeftLeg" , parent= "Torso" , child = "FrontLeftLeg" , type = "revolute", position = [-.5,1,1], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="FrontLeftLeg", pos=[-.5,0,0] , size=[1,.2,.2]) #creates box with initial size and positons
 
         # Lower legs right side    
@@ -139,6 +139,7 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron( name = 14 , jointName = "MiddleLeftLeg_middleLeftLowerLeg")
         pyrosim.Send_Motor_Neuron( name = 15 , jointName = "BackLeftLeg_backLeftLowerLeg")
         pyrosim.Send_Motor_Neuron( name = 16 , jointName = "FrontLeftLeg_frontLeftLowerLeg")
+        pyrosim.Send_Motor_Neuron( name = 17 , jointName = "Torso_BackLeftLeg")
 
         for currentRow in range (c.numSensorNeurons):
             for currentColumn in range(c.numMotorNeurons):
