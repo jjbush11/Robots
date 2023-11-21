@@ -1,6 +1,10 @@
 # Evolutionary Robotics
 Which robot, a hexapod or quadruped, evolves to move further? To answer this question I used the physics engine PyBullet to build and simulate evolution on quadruped and a hexapod. This evolutionary algorithm gave higher fitness scores to robots that moved far and moved with a constant motion. 
 
+The code for this project can be found in the finalProject branch.
+
+Language: Python
+
 # Evolution
 <img width="299" alt="image" src="https://github.com/jjbush11/Robots/assets/112502062/bb538e92-fa6f-4b7e-ba5e-42c11c3d5a19">
 
